@@ -1,0 +1,267 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px 20px 14px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Guide layout: fixed left col + scrollable right */
+.guideOuter {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* --- Fixed channel column --- */
+.channelCol {
+  width: 160px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.cornerCell {
+  height: 36px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.chCell {
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s;
+  overflow: hidden;
+}
+
+.chCell:hover {
+  background: var(--bg-hover);
+}
+
+.chLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.chNum {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--accent);
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+
+.chName {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Scrollable timeline area --- */
+.scrollArea {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  background: var(--bg-deep);
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-elevated) transparent;
+}
+
+.scrollArea::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollArea::-webkit-scrollbar-thumb {
+  background: var(--bg-elevated);
+  border-radius: 3px;
+}
+
+/* --- Time header --- */
+.timeHeader {
+  position: relative;
+  height: 36px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.timeSlot {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  border-left: 1px solid var(--border);
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+/* --- Show rows --- */
+.showRow {
+  position: relative;
+  height: 56px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-base);
+}
+
+.showRow:hover {
+  background: var(--bg-deep);
+}
+
+/* --- Show blocks --- */
+.showBlock {
+  position: absolute;
+  top: 5px;
+  height: calc(100% - 10px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  transition: background 0.15s, border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.showBlock:hover {
+  background: var(--bg-elevated);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.showNow {
+  background: rgba(232, 160, 32, 0.12);
+  border-color: var(--accent);
+}
+
+.showNow:hover {
+  background: rgba(232, 160, 32, 0.2);
+}
+
+/* Show that started before the guide window — rounded left edge removed */
+.truncLeft {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.showTitle {
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.showNow .showTitle {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.liveDot {
+  flex-shrink: 0;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+}
+
+/* --- Current-time indicator --- */
+.nowBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--red);
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(232, 64, 64, 0.6);
+}
+
+/* Small triangle at top of now bar */
+.nowBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid var(--red);
+}
+
+/* States */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 8px;
+}
